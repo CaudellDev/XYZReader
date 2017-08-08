@@ -121,11 +121,6 @@ public class ArticleListActivity extends AppCompatActivity implements LoaderMana
         mRecyclerView.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(llm);
-
-//        int columnCount = getResources().getInteger(R.integer.list_column_count);
-//        StaggeredGridLayoutManager sglm =
-//                new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
-//        mRecyclerView.setLayoutManager(sglm);
     }
 
     @Override
@@ -150,6 +145,7 @@ public class ArticleListActivity extends AppCompatActivity implements LoaderMana
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.list_item_gradient, parent, false);
             final ViewHolder vh = new ViewHolder(view);
+
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -157,6 +153,7 @@ public class ArticleListActivity extends AppCompatActivity implements LoaderMana
                             ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
                 }
             });
+
             return vh;
         }
 

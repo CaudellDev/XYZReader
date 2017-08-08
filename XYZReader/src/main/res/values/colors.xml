@@ -27,4 +27,5 @@
     <color name="colorAccent">@color/theme_accent</color>
 
     <color name="ltgray">#ffe0e0e0</color>
+    <color name="dkgray">#ff303030</color>
 </resources>

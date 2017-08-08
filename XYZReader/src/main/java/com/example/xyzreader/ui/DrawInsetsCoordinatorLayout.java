@@ -78,7 +78,7 @@ public class DrawInsetsCoordinatorLayout extends CoordinatorLayout {
     }
 
     @Override
-    protected void onAttachedToWindow() {
+    public void onAttachedToWindow() {
         super.onAttachedToWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             requestApplyInsets();
@@ -89,7 +89,7 @@ public class DrawInsetsCoordinatorLayout extends CoordinatorLayout {
     }
 
     @Override
-    protected void onDetachedFromWindow() {
+    public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         if (mInsetBackground != null) {
             mInsetBackground.setCallback(null);
