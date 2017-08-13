@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
@@ -63,6 +64,7 @@ public class ArticleDetailFragment extends Fragment implements
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
     private Toolbar mToolbar;
+    private FloatingActionButton mFabShare;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
@@ -115,11 +117,10 @@ public class ArticleDetailFragment extends Fragment implements
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
-        mDrawInsetsCoordinatorLayout = (DrawInsetsCoordinatorLayout)
-                mRootView.findViewById(R.id.draw_insets_coord_layout);
+
+        mDrawInsetsCoordinatorLayout = (DrawInsetsCoordinatorLayout) mRootView.findViewById(R.id.draw_insets_coord_layout);
         mDrawInsetsCoordinatorLayout.setOnInsetsCallback(new DrawInsetsCoordinatorLayout.OnInsetsCallback() {
             @Override
             public void onInsetsChanged(Rect insets) {
@@ -127,31 +128,37 @@ public class ArticleDetailFragment extends Fragment implements
             }
         });
 
+        mToolbar = (Toolbar) mRootView.findViewById(R.id.detail_toolbar);
+        mToolbar.setTitle("");
+        getActivityCast().setSupportActionBar(mToolbar);
+        if (getActivityCast().getSupportActionBar() != null) {
+            getActivityCast().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
                 mScrollView = (ObservableScrollView) mRootView.findViewById(R.id.scrollview);
         mScrollView.setCallbacks(new ObservableScrollView.Callbacks() {
             @Override
             public void onScrollChanged() {
                 mScrollY = mScrollView.getScrollY();
 //                getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
-//                mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
                 updateStatusBar();
             }
         });
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
-//        mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
 
         mStatusBarColorDrawable = new ColorDrawable(0);
+        mFabShare = mRootView.findViewById(R.id.share_fab);
 
-//        mRootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
-//                        .setType("text/plain")
-//                        .setText("Some sample text")
-//                        .getIntent(), getString(R.string.action_share)));
-//            }
-//        });
+        mRootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
+                        .setType("text/plain")
+                        .setText("Some sample text")
+                        .getIntent(), getString(R.string.action_share)));
+            }
+        });
 
         bindViews();
         updateStatusBar();
@@ -222,22 +229,8 @@ public class ArticleDetailFragment extends Fragment implements
             mRootView.setVisibility(View.VISIBLE);
             mRootView.animate().alpha(1);
 
-//            titleView.setText("Test Title");
-//            bylineView.setText("Test Date");
-//            bodyView.setText("Test Body");
-//
-//            String tempTitle = mCursor.getString(ArticleLoader.Query.TITLE);
-//            String tempDate = parsePublishedDate().toString();
-//            String tempBody = mCursor.getString(ArticleLoader.Query.BODY);
-//
-//            Log.v(LOG_TAG, "######----------------------######");
-//
-//            Log.i(LOG_TAG, "Title data: " + tempTitle);
-//            Log.i(LOG_TAG, "Date data: " + tempDate);
-//            Log.i(LOG_TAG, "Body data: " + tempBody);
-
             titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
-            mToolbar.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+//            mToolbar.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
 
             Date publishedDate = parsePublishedDate();
             if (!publishedDate.before(START_OF_EPOCH.getTime())) {
