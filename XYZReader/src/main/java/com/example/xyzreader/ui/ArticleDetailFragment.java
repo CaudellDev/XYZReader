@@ -176,7 +176,7 @@ public class ArticleDetailFragment extends Fragment implements
                     (int) (Color.green(mMutedColor) * 0.9),
                     (int) (Color.blue(mMutedColor) * 0.9));
         }
-        mStatusBarColorDrawable.setColor(color);
+        mStatusBarColorDrawable.setColor(color); // Doesn't seem to be working anymore...
         mDrawInsetsCoordinatorLayout.setInsetBackground(mStatusBarColorDrawable);
     }
 
