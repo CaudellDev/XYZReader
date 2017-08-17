@@ -64,7 +64,6 @@ public class ArticleListActivity extends AppCompatActivity implements LoaderMana
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
-
         final View toolbarContainerView = findViewById(R.id.toolbar_container);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
@@ -195,21 +194,6 @@ public class ArticleListActivity extends AppCompatActivity implements LoaderMana
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
             holder.imageView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
-
-            Log.v(LOG_TAG, "Image height: " + holder.imageView.getHeight());
-            Log.v(LOG_TAG, "Image aspect r: " + holder.imageView.getAspectRatio());
-//            Log.v(LOG_TAG, "B- Layout list height: " + holder.layout_list.getHeight());
-//            Log.v(LOG_TAG, "B- Layout list min height: " + holder.layout_list.getMinimumHeight());
-//
-//            holder.layout_list.setMinimumHeight(holder.imageView.getHeight());
-//
-//            Log.v(LOG_TAG, "A- Layout list height: " + holder.layout_list.getHeight());
-//            Log.v(LOG_TAG, "A- Layout list min height: " + holder.layout_list.getMinimumHeight());
-
-//            holder.thumbnailView.setImageUrl(
-//                    mCursor.getString(ArticleLoader.Query.THUMB_URL),
-//                    ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
-//            holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
         }
 
         @Override
@@ -219,8 +203,6 @@ public class ArticleListActivity extends AppCompatActivity implements LoaderMana
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-//        public DynamicHeightNetworkImageView thumbnailView;
-
         public LinearLayout layout_list;
         public DynamicHeightNetworkImageView imageView;
         public TextView titleView;
@@ -228,7 +210,6 @@ public class ArticleListActivity extends AppCompatActivity implements LoaderMana
 
         public ViewHolder(View view) {
             super(view);
-//            thumbnailView = (DynamicHeightNetworkImageView) view.findViewById(R.id.thumbnail);
 
             layout_list = (LinearLayout) view.findViewById(R.id.list_item_gradient);
             imageView = (DynamicHeightNetworkImageView) view.findViewById(R.id.image_item);

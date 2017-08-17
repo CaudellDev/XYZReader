@@ -38,8 +38,6 @@ public class ArticleDetailActivity extends AppCompatActivity
 
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
-//    private View mUpButtonContainer;
-//    private View mUpButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
