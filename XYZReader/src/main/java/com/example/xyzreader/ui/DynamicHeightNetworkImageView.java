@@ -1,6 +1,7 @@
 package com.example.xyzreader.ui;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.AttributeSet;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -23,6 +24,14 @@ public class DynamicHeightNetworkImageView extends NetworkImageView {
     public void setAspectRatio(float aspectRatio) {
         mAspectRatio = aspectRatio;
         requestLayout();
+    }
+
+    public float getAspectRatio() {
+        return mAspectRatio;
+    }
+
+    public Bitmap getBitmap() {
+        return getBitmap();
     }
 
     @Override

@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -130,6 +131,7 @@ public class ArticleListActivity extends AppCompatActivity implements LoaderMana
 
     private class Adapter extends RecyclerView.Adapter<ViewHolder> {
         private Cursor mCursor;
+        private final String LOG_TAG = Adapter.class.getSimpleName();
 
         public Adapter(Cursor cursor) {
             mCursor = cursor;
@@ -192,6 +194,17 @@ public class ArticleListActivity extends AppCompatActivity implements LoaderMana
             holder.imageView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
+            holder.imageView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
+
+            Log.v(LOG_TAG, "Image height: " + holder.imageView.getHeight());
+            Log.v(LOG_TAG, "Image aspect r: " + holder.imageView.getAspectRatio());
+//            Log.v(LOG_TAG, "B- Layout list height: " + holder.layout_list.getHeight());
+//            Log.v(LOG_TAG, "B- Layout list min height: " + holder.layout_list.getMinimumHeight());
+//
+//            holder.layout_list.setMinimumHeight(holder.imageView.getHeight());
+//
+//            Log.v(LOG_TAG, "A- Layout list height: " + holder.layout_list.getHeight());
+//            Log.v(LOG_TAG, "A- Layout list min height: " + holder.layout_list.getMinimumHeight());
 
 //            holder.thumbnailView.setImageUrl(
 //                    mCursor.getString(ArticleLoader.Query.THUMB_URL),
@@ -208,7 +221,8 @@ public class ArticleListActivity extends AppCompatActivity implements LoaderMana
     public static class ViewHolder extends RecyclerView.ViewHolder {
 //        public DynamicHeightNetworkImageView thumbnailView;
 
-        public NetworkImageView imageView;
+        public LinearLayout layout_list;
+        public DynamicHeightNetworkImageView imageView;
         public TextView titleView;
         public TextView subtitleView;
 
@@ -216,7 +230,8 @@ public class ArticleListActivity extends AppCompatActivity implements LoaderMana
             super(view);
 //            thumbnailView = (DynamicHeightNetworkImageView) view.findViewById(R.id.thumbnail);
 
-            imageView = (NetworkImageView) view.findViewById(R.id.image_item);
+            layout_list = (LinearLayout) view.findViewById(R.id.list_item_gradient);
+            imageView = (DynamicHeightNetworkImageView) view.findViewById(R.id.image_item);
             titleView = (TextView) view.findViewById(R.id.article_title);
             subtitleView = (TextView) view.findViewById(R.id.article_subtitle);
         }
